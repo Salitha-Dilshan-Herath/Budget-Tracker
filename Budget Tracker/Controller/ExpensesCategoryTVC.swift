@@ -6,44 +6,48 @@
 //
 
 import UIKit
+import CoreData
+
+protocol ExpensesCategoryTVCDelegate: class {
+    
+    func ExpenseDetail(id:Int)
+}
 
 class ExpensesCategoryTVC: UITableViewController {
-
-    var items = ["Hello", "Monday", "Nice"]
+    
+    
+    weak var delegate: ExpensesCategoryTVCDelegate?
+    var dataManager = CoreDataManager()
+    var categoryManageObjects = [NSManagedObject]() {
+        didSet {
+            self.setupTable()
+        }
+    }
+    var categoryList = [CategoryData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        //self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.tableView.reloadData()
+        setupUI()
+    }
+    
+    func setupUI()  {
+        self.tableView.register(UINib(nibName: "ExpenseTC", bundle: nil), forCellReuseIdentifier: "expense")
+        self.tableView.reloadWithAnimation()
+        
+        self.categoryManageObjects = dataManager.getCategoryList()
+    }
+    
+    func setupTable()  {
+        
+        
     }
     
     @IBAction func addCategoryBtnTap(_ sender: UIBarButtonItem) {
-     
-//    // get a reference to the view controller for the popover
-//        let popController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddNewCategoryVC")
-//
-//        // set the presentation style
-//        popController.modalPresentationStyle = UIModalPresentationStyle.popover
-//
-//        popController.popoverPresentationController?.delegate = self
-//        popController.popoverPresentationController?.sourceView = sender // button
-//        popController.popoverPresentationController?.sourceRect = sender.bounds
-//        
-//        // set up the popover presentation controller
-//        popController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-//       
-//
-//        // present the popover
-//        self.present(popController, animated: true, completion: nil)
+
     }
     
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -51,19 +55,25 @@ class ExpensesCategoryTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return items.count
+        return categoryList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as! ExpenseTC
 
-        cell.textLabel?.text = items[indexPath.row]
+        cell.viwBack.backgroundColor = Constant.PRIMARY_COLOR_THEMES[indexPath.row]
+        cell.viwDetail.backgroundColor = Constant.SECONDARY_COLOR_THEMES[indexPath.row]
 
+        cell.selectionStyle = .none
         return cell
     }
     
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.delegate?.ExpenseDetail(id: indexPath.row)
+    }
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -77,12 +87,17 @@ class ExpensesCategoryTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            self.items.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+           // tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
             
         }    
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 120
     }
     
 
@@ -98,16 +113,6 @@ class ExpensesCategoryTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
     */
 

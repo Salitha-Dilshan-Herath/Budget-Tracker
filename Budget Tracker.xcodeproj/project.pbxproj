@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E52AE7932646557400FC2769 /* UIExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7922646557400FC2769 /* UIExtenstions.swift */; };
+		E52AE7972646AF2100FC2769 /* ExpenseTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7952646AF2100FC2769 /* ExpenseTC.swift */; };
+		E52AE7982646AF2100FC2769 /* ExpenseTC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E52AE7962646AF2100FC2769 /* ExpenseTC.xib */; };
+		E52AE79F2649636900FC2769 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE79E2649636900FC2769 /* PieChart.swift */; };
+		E52AE7A3264A1FB500FC2769 /* AddNewExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7A2264A1FB500FC2769 /* AddNewExpenseVC.swift */; };
+		E52AE7AA264AD37200FC2769 /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7A6264AD37200FC2769 /* Category+CoreDataClass.swift */; };
+		E52AE7AB264AD37200FC2769 /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7A7264AD37200FC2769 /* Category+CoreDataProperties.swift */; };
+		E52AE7AC264AD37200FC2769 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7A8264AD37200FC2769 /* Expense+CoreDataClass.swift */; };
+		E52AE7AD264AD37200FC2769 /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7A9264AD37200FC2769 /* Expense+CoreDataProperties.swift */; };
+		E52AE7B5264AE62600FC2769 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7B4264AE62600FC2769 /* Alert.swift */; };
+		E52AE7B8264B880D00FC2769 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7B7264B880C00FC2769 /* CoreDataManager.swift */; };
+		E52AE7BB264B8E4300FC2769 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7BA264B8E4300FC2769 /* CategoryData.swift */; };
 		E5979F1F264143200016A924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5979F1E264143200016A924 /* AppDelegate.swift */; };
 		E5979F21264143200016A924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5979F20264143200016A924 /* SceneDelegate.swift */; };
 		E5979F26264143200016A924 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5979F24264143200016A924 /* Main.storyboard */; };
@@ -21,6 +33,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E52AE7922646557400FC2769 /* UIExtenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtenstions.swift; sourceTree = "<group>"; };
+		E52AE7952646AF2100FC2769 /* ExpenseTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTC.swift; sourceTree = "<group>"; };
+		E52AE7962646AF2100FC2769 /* ExpenseTC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseTC.xib; sourceTree = "<group>"; };
+		E52AE79E2649636900FC2769 /* PieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
+		E52AE7A2264A1FB500FC2769 /* AddNewExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewExpenseVC.swift; sourceTree = "<group>"; };
+		E52AE7A6264AD37200FC2769 /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E52AE7A7264AD37200FC2769 /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E52AE7A8264AD37200FC2769 /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E52AE7A9264AD37200FC2769 /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E52AE7B4264AE62600FC2769 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		E52AE7B7264B880C00FC2769 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		E52AE7BA264B8E4300FC2769 /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
 		E5979F1B264143200016A924 /* Budget Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budget Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5979F1E264143200016A924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5979F20264143200016A924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +71,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E52AE7912646555B00FC2769 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E52AE7922646557400FC2769 /* UIExtenstions.swift */,
+				E52AE7952646AF2100FC2769 /* ExpenseTC.swift */,
+				E52AE79E2649636900FC2769 /* PieChart.swift */,
+				E52AE7B4264AE62600FC2769 /* Alert.swift */,
+				E52AE7B7264B880C00FC2769 /* CoreDataManager.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E52AE7A5264AD2EE00FC2769 /* Core Data  */ = {
+			isa = PBXGroup;
+			children = (
+				E52AE7A6264AD37200FC2769 /* Category+CoreDataClass.swift */,
+				E52AE7A7264AD37200FC2769 /* Category+CoreDataProperties.swift */,
+				E52AE7A8264AD37200FC2769 /* Expense+CoreDataClass.swift */,
+				E52AE7A9264AD37200FC2769 /* Expense+CoreDataProperties.swift */,
+			);
+			path = "Core Data ";
+			sourceTree = "<group>";
+		};
 		E5979F122641431F0016A924 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +113,7 @@
 		E5979F1D264143200016A924 /* Budget Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				E52AE7912646555B00FC2769 /* Extensions */,
 				E5979F3C2641AA020016A924 /* Resources */,
 				E5979F3B26419D130016A924 /* Controller */,
 				E5979F3A26419D0A0016A924 /* View */,
@@ -89,6 +137,8 @@
 		E5979F3926419CDF0016A924 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E52AE7A5264AD2EE00FC2769 /* Core Data  */,
+				E52AE7BA264B8E4300FC2769 /* CategoryData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -98,6 +148,7 @@
 			children = (
 				E5979F2C264143220016A924 /* LaunchScreen.storyboard */,
 				E5979F24264143200016A924 /* Main.storyboard */,
+				E52AE7962646AF2100FC2769 /* ExpenseTC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -109,6 +160,7 @@
 				E5979F442642ACA80016A924 /* ExpensesDetailVC.swift */,
 				E5979F472642AE970016A924 /* ExpensesCategoryTVC.swift */,
 				E5979F50264574370016A924 /* AddNewCategoryVC.swift */,
+				E52AE7A2264A1FB500FC2769 /* AddNewExpenseVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -180,6 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5979F2E264143220016A924 /* LaunchScreen.storyboard in Resources */,
+				E52AE7982646AF2100FC2769 /* ExpenseTC.xib in Resources */,
 				E5979F2B264143220016A924 /* Assets.xcassets in Resources */,
 				E5979F26264143200016A924 /* Main.storyboard in Resources */,
 			);
@@ -195,8 +248,19 @@
 				E5979F4E264572F60016A924 /* Constant.swift in Sources */,
 				E5979F482642AE970016A924 /* ExpensesCategoryTVC.swift in Sources */,
 				E5979F452642ACA80016A924 /* ExpensesDetailVC.swift in Sources */,
+				E52AE7B5264AE62600FC2769 /* Alert.swift in Sources */,
+				E52AE7AA264AD37200FC2769 /* Category+CoreDataClass.swift in Sources */,
+				E52AE7972646AF2100FC2769 /* ExpenseTC.swift in Sources */,
+				E52AE7B8264B880D00FC2769 /* CoreDataManager.swift in Sources */,
+				E52AE7A3264A1FB500FC2769 /* AddNewExpenseVC.swift in Sources */,
 				E5979F51264574370016A924 /* AddNewCategoryVC.swift in Sources */,
+				E52AE7BB264B8E4300FC2769 /* CategoryData.swift in Sources */,
+				E52AE7AC264AD37200FC2769 /* Expense+CoreDataClass.swift in Sources */,
+				E52AE7AB264AD37200FC2769 /* Category+CoreDataProperties.swift in Sources */,
+				E52AE79F2649636900FC2769 /* PieChart.swift in Sources */,
 				E5979F29264143200016A924 /* Budget_Tracker.xcdatamodeld in Sources */,
+				E52AE7932646557400FC2769 /* UIExtenstions.swift in Sources */,
+				E52AE7AD264AD37200FC2769 /* Expense+CoreDataProperties.swift in Sources */,
 				E5979F1F264143200016A924 /* AppDelegate.swift in Sources */,
 				E5979F4026425DFD0016A924 /* MainSplitVC.swift in Sources */,
 				E5979F21264143200016A924 /* SceneDelegate.swift in Sources */,
