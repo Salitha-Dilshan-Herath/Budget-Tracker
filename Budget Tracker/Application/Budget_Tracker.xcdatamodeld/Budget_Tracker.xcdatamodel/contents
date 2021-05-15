@@ -5,6 +5,7 @@
         <attribute name="colour" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="tap" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="expenses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="category" inverseEntity="Expense"/>
     </entity>
     <entity name="Expense" representedClassName="Expense" syncable="YES">
@@ -16,7 +17,7 @@
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="expenses" inverseEntity="Category"/>
     </entity>
     <elements>
-        <element name="Category" positionX="-437.9708862304688" positionY="-4.751785278320312" width="128" height="104"/>
+        <element name="Category" positionX="-437.9708862304688" positionY="-4.751785278320312" width="128" height="119"/>
         <element name="Expense" positionX="-14.69720458984375" positionY="78.20770263671875" width="128" height="119"/>
     </elements>
 </model>

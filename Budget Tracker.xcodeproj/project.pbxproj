@@ -19,6 +19,7 @@
 		E52AE7B5264AE62600FC2769 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7B4264AE62600FC2769 /* Alert.swift */; };
 		E52AE7B8264B880D00FC2769 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7B7264B880C00FC2769 /* CoreDataManager.swift */; };
 		E52AE7BB264B8E4300FC2769 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7BA264B8E4300FC2769 /* CategoryData.swift */; };
+		E52AE7C8264E8D6300FC2769 /* ExpensesTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52AE7C7264E8D6200FC2769 /* ExpensesTV.swift */; };
 		E5979F1F264143200016A924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5979F1E264143200016A924 /* AppDelegate.swift */; };
 		E5979F21264143200016A924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5979F20264143200016A924 /* SceneDelegate.swift */; };
 		E5979F26264143200016A924 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5979F24264143200016A924 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		E52AE7B4264AE62600FC2769 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		E52AE7B7264B880C00FC2769 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		E52AE7BA264B8E4300FC2769 /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
+		E52AE7C7264E8D6200FC2769 /* ExpensesTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTV.swift; sourceTree = "<group>"; };
 		E5979F1B264143200016A924 /* Budget Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budget Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5979F1E264143200016A924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5979F20264143200016A924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		E52AE7912646555B00FC2769 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E52AE7C6264E8D2F00FC2769 /* ExpensesCategoryTVC */,
 				E52AE7922646557400FC2769 /* UIExtenstions.swift */,
 				E52AE7952646AF2100FC2769 /* ExpenseTC.swift */,
 				E52AE79E2649636900FC2769 /* PieChart.swift */,
@@ -92,6 +95,14 @@
 				E52AE7A9264AD37200FC2769 /* Expense+CoreDataProperties.swift */,
 			);
 			path = "Core Data ";
+			sourceTree = "<group>";
+		};
+		E52AE7C6264E8D2F00FC2769 /* ExpensesCategoryTVC */ = {
+			isa = PBXGroup;
+			children = (
+				E52AE7C7264E8D6200FC2769 /* ExpensesTV.swift */,
+			);
+			path = ExpensesCategoryTVC;
 			sourceTree = "<group>";
 		};
 		E5979F122641431F0016A924 = {
@@ -253,6 +264,7 @@
 				E52AE7972646AF2100FC2769 /* ExpenseTC.swift in Sources */,
 				E52AE7B8264B880D00FC2769 /* CoreDataManager.swift in Sources */,
 				E52AE7A3264A1FB500FC2769 /* AddNewExpenseVC.swift in Sources */,
+				E52AE7C8264E8D6300FC2769 /* ExpensesTV.swift in Sources */,
 				E5979F51264574370016A924 /* AddNewCategoryVC.swift in Sources */,
 				E52AE7BB264B8E4300FC2769 /* CategoryData.swift in Sources */,
 				E52AE7AC264AD37200FC2769 /* Expense+CoreDataClass.swift in Sources */,

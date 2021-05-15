@@ -10,7 +10,7 @@ import CoreData
 
 protocol ExpensesCategoryTVCDelegate: class {
     
-    func ExpenseDetail(id:Int)
+    func ExpenseDetail(categoryData:CategoryData, categoryManageObject: NSManagedObject)
 }
 
 class ExpensesCategoryTVC: UITableViewController {
@@ -18,102 +18,125 @@ class ExpensesCategoryTVC: UITableViewController {
     
     weak var delegate: ExpensesCategoryTVCDelegate?
     var dataManager = CoreDataManager()
-    var categoryManageObjects = [NSManagedObject]() {
-        didSet {
-            self.setupTable()
-        }
-    }
+    var categoryManageObjects = [NSManagedObject]()
     var categoryList = [CategoryData]()
+    var selectedCategoryIndex = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupUI()
     }
     
+    @IBAction func addCategoryBtnTap(_ sender: UIBarButtonItem) {
+        
+        let addNewCategory = self.storyboard!.instantiateViewController(withIdentifier: "AddNewCategoryVC") as! AddNewCategoryVC
+        addNewCategory.modalPresentationStyle = .popover
+        addNewCategory.preferredContentSize = CGSize(width: 350, height: 390)
+        addNewCategory.delegate = self
+        
+        let popController  = addNewCategory.popoverPresentationController
+        popController?.permittedArrowDirections = .up
+        popController?.barButtonItem = sender
+
+        present(addNewCategory, animated: true, completion: nil)
+        print("tap")
+    }
+    
+    @IBAction func sortBtnTap(_ sender: Any) {
+        
+        self.categoryList = self.categoryList.sorted { $0.name.lowercased() < $1.name.lowercased() }
+        self.tableView.reloadWithAnimation()
+    }
+    
+    //Mark: Custom methods
     func setupUI()  {
         self.tableView.register(UINib(nibName: "ExpenseTC", bundle: nil), forCellReuseIdentifier: "expense")
-        self.tableView.reloadWithAnimation()
-        
         self.categoryManageObjects = dataManager.getCategoryList()
+        self.setupTable()
     }
     
     func setupTable()  {
+                
+        self.convertCategoryData()
         
+        if self.categoryList.count > 0 {
+            self.categoryList = self.categoryList.sorted { $0.tap > $1.tap }
+            self.tableView.reloadWithAnimation()
+            self.tableView.selectRow(at: IndexPath(row: 0, section: 0) as IndexPath, animated: true, scrollPosition:UITableView.ScrollPosition.none)
+
+        }
+    }
+    
+    func updateCategoryTapCount(category: CategoryData, catObj: NSManagedObject)  {
         
-    }
-    
-    @IBAction func addCategoryBtnTap(_ sender: UIBarButtonItem) {
-
-    }
-    
-    // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return categoryList.count
-    }
-
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as! ExpenseTC
-
-        cell.viwBack.backgroundColor = Constant.PRIMARY_COLOR_THEMES[indexPath.row]
-        cell.viwDetail.backgroundColor = Constant.SECONDARY_COLOR_THEMES[indexPath.row]
-
-        cell.selectionStyle = .none
-        return cell
-    }
-    
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var new_category = category
+        new_category.tap += 1
         
-        self.delegate?.ExpenseDetail(id: indexPath.row)
-    }
-    
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    
+        dataManager.updateCategory(categoryDetail: new_category, categoryObj: catObj) {
+            result in
 
+            if result {
+
+                  self.categoryManageObjects = self.dataManager.getCategoryList()
+
+            } else {
+
+                print("update category tap count failed")
+
+            }
+
+        }
+    }
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
+    func convertCategoryData()  {
+        
+        self.categoryList.removeAll()
+
+        self.categoryManageObjects.forEach { (nsObject) in
             
-           // tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            self.categoryList.append(CategoryData(name: nsObject.value(forKey: "name") as! String, budget: nsObject.value(forKey: "budget") as! Decimal, colour: nsObject.value(forKey: "colour") as! Int, notes: nsObject.value(forKey: "notes") as? String ?? "", tap: nsObject.value(forKey: "tap") as! Int))
             
-        }    
+        }
     }
+}
+
+
+extension ExpensesCategoryTVC: ExpenseTCDelegate {
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func categoryEdit(index: Int, sender: UIButton, cell: UITableViewCell) {
         
-        return 120
+        let frame = sender.frame
+        var showRect = cell.convert(frame, to: self.tableView)
+        showRect = self.tableView.convert(showRect, to: view)
+        
+        let controllerPopover = self.storyboard?.instantiateViewController(withIdentifier: "AddNewCategoryVC") as? AddNewCategoryVC
+        controllerPopover?.modalPresentationStyle = .popover
+        controllerPopover?.preferredContentSize = CGSize(width: 350, height: 390)
+        controllerPopover?.categoryData = self.categoryList[index]
+        controllerPopover?.categoryManageObj = self.categoryManageObjects[index]
+        controllerPopover?.isEdit = true
+        controllerPopover?.delegate = self
+
+        if let popoverPC = controllerPopover?.popoverPresentationController {
+            popoverPC.permittedArrowDirections = .left
+            popoverPC.sourceView = self.view
+            popoverPC.sourceRect = showRect
+            
+            if let popoverController = controllerPopover {
+                present(popoverController, animated: true, completion: nil)
+            }
+        }
     }
+}
+
+extension ExpensesCategoryTVC: AddNewCategoryVCDelegate {
     
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    func updateTable() {
+        
+        self.categoryManageObjects.removeAll()
+        self.categoryList.removeAll()
+        self.categoryManageObjects = dataManager.getCategoryList()
+        self.convertCategoryData()
+        self.tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
 }

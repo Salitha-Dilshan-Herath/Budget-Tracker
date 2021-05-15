@@ -25,9 +25,31 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjG-Vd-iws">
                                         <rect key="frame" x="0.0" y="0.0" width="843.5" height="70"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6B-7s-d8C">
+                                                <rect key="frame" x="10" y="0.0" width="422" height="70"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnj-NK-Ggl">
+                                                <rect key="frame" x="432" y="0.0" width="401.5" height="70"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstItem="W6B-7s-d8C" firstAttribute="top" secondItem="bjG-Vd-iws" secondAttribute="top" id="2gU-s1-lsR"/>
+                                            <constraint firstAttribute="bottom" secondItem="Cnj-NK-Ggl" secondAttribute="bottom" id="82d-B4-vZo"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cnj-NK-Ggl" secondAttribute="trailing" constant="10" id="BLl-ZV-DqV"/>
+                                            <constraint firstItem="Cnj-NK-Ggl" firstAttribute="leading" secondItem="W6B-7s-d8C" secondAttribute="trailing" id="Ckm-cZ-ZIx"/>
+                                            <constraint firstAttribute="bottom" secondItem="W6B-7s-d8C" secondAttribute="bottom" id="CnG-dW-AkE"/>
+                                            <constraint firstItem="W6B-7s-d8C" firstAttribute="leading" secondItem="bjG-Vd-iws" secondAttribute="leading" constant="10" id="KF1-Nm-Qxn"/>
+                                            <constraint firstItem="Cnj-NK-Ggl" firstAttribute="top" secondItem="bjG-Vd-iws" secondAttribute="top" id="d1k-N0-aED"/>
                                             <constraint firstAttribute="height" constant="70" id="dyP-gw-pTT"/>
+                                            <constraint firstItem="W6B-7s-d8C" firstAttribute="width" secondItem="bjG-Vd-iws" secondAttribute="width" multiplier="1:2" id="tx3-v8-s6Q"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNc-yJ-sUJ">
@@ -156,6 +178,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="lblBudget" destination="Cnj-NK-Ggl" id="fUU-nn-uNM"/>
+                        <outlet property="lblCategoryName" destination="W6B-7s-d8C" id="SCL-Xt-dlM"/>
                         <outlet property="viwBack" destination="iqc-4c-3vh" id="yXd-bF-jI7"/>
                         <outlet property="viwHeader" destination="bjG-Vd-iws" id="6b0-X3-faO"/>
                         <outlet property="viwPieChart" destination="QQH-Su-JTC" id="muN-E8-QYf"/>
@@ -171,11 +195,11 @@
             <objects>
                 <viewController storyboardIdentifier="AddNewCategoryVC" modalPresentationStyle="fullScreen" id="5VR-C5-i23" customClass="AddNewCategoryVC" customModule="Budget_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hca-gM-1Qj">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="370"/>
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="390"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sMZ-0G-epL">
-                                <rect key="frame" x="0.0" y="0.0" width="350" height="370"/>
+                                <rect key="frame" x="0.0" y="0.0" width="350" height="390"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NYR-Fc-fX3">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="370"/>
@@ -490,6 +514,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="MFd-qx-FZw"/>
                     <value key="contentSizeForViewInPopover" type="size" width="350" height="390"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <size key="freeformSize" width="350" height="390"/>
                     <connections>
                         <outlet property="btnCancel" destination="Imc-qB-SNY" id="ZlX-Wf-N0Q"/>
@@ -508,7 +533,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Pi-RV-mDb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="778.391959798995" y="128.05755395683454"/>
+            <point key="canvasLocation" x="796" y="268"/>
         </scene>
         <!--Expense Categories-->
         <scene sceneID="3RR-0H-5SR">
@@ -537,13 +562,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Expense Categories" id="tgp-rO-74G">
-                        <barButtonItem key="leftBarButtonItem" image="aZSort" id="dV4-zr-pm4"/>
+                        <barButtonItem key="leftBarButtonItem" image="aZSort" id="dV4-zr-pm4">
+                            <connections>
+                                <action selector="sortBtnTap:" destination="VCs-mu-maN" id="vmu-85-tb8"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WvS-YA-TUp">
                             <connections>
-                                <action selector="addCategoryBtnTap:" destination="VCs-mu-maN" id="pj9-YT-e9b"/>
-                                <segue destination="5VR-C5-i23" kind="popoverPresentation" popoverAnchorBarButtonItem="WvS-YA-TUp" id="xSM-Qr-uyb">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
+                                <action selector="addCategoryBtnTap:" destination="VCs-mu-maN" id="y3N-HD-Mna"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

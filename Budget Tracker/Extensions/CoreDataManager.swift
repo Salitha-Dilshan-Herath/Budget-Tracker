@@ -14,7 +14,6 @@ struct CoreDataManager {
     private var appDelegate: AppDelegate?
     private var manageContent: NSManagedObjectContext?
     
-    
     init() {
         
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -24,30 +23,65 @@ struct CoreDataManager {
         
     }
     
-    func saveCategory(categoryDetail: CategoryData, vc: UIViewController) {
-        
+    func saveCategory(categoryDetail: CategoryData, completion: @escaping (Bool) -> Void) {
         
         let categoryEntity    = NSEntityDescription.entity(forEntityName: "Category", in: self.manageContent!)!
         let category          = NSManagedObject(entity: categoryEntity, insertInto: manageContent)
         
         category.setValue(categoryDetail.name, forKey: "name")
         category.setValue(categoryDetail.budget, forKey: "budget")
-        category.setValue(categoryDetail.budget, forKey: "colour")
+        category.setValue(categoryDetail.colour, forKey: "colour")
+        category.setValue(categoryDetail.tap, forKey: "tap")
         
         if categoryDetail.notes != "" {
             category.setValue(categoryDetail.notes, forKey: "notes")
         }
         
-        
         do {
             try self.manageContent!.save()
-            Alert.showMessage(msg: "Project save successful", on: vc)
+            
+            completion(true)
             
         } catch _ as NSError {
             
-            Alert.showMessage(msg: "An error occured while saving the project", on: vc)
-            
+            completion(true)            
         }
+    }
+    
+    
+    func updateCategory(categoryDetail: CategoryData, categoryObj: NSManagedObject, completion: @escaping (Bool) -> Void) {
+        
+        let category  = categoryObj
+        
+        category.setValue(categoryDetail.name, forKey: "name")
+        category.setValue(categoryDetail.budget, forKey: "budget")
+        category.setValue(categoryDetail.colour, forKey: "colour")
+        category.setValue(categoryDetail.tap, forKey: "tap")
+        
+        if categoryDetail.notes != "" {
+            category.setValue(categoryDetail.notes, forKey: "notes")
+        }
+        
+        do {
+            try self.manageContent!.save()
+            completion(true)
+            
+        } catch _ as NSError {
+            completion(false)            
+        }
+    }
+    
+    func deleteCategory(categoryObj: NSManagedObject, completion: @escaping (Bool) -> Void) {
+        
+        do {
+            self.manageContent!.delete(categoryObj)
+            try self.manageContent!.save()
+            completion(true)
+            
+        } catch _ as NSError {
+            completion(false)
+        }
+        
     }
     
     func getCategoryList() -> [NSManagedObject]  {
@@ -63,7 +97,5 @@ struct CoreDataManager {
             print("Failed")
             return [NSManagedObject]()
         }
-        
-         
     }
 }

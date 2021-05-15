@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ExpensesDetailVC: UIViewController {
 
@@ -13,10 +14,15 @@ class ExpensesDetailVC: UIViewController {
     @IBOutlet weak var viwHeader: UIView!
     @IBOutlet weak var viwShadow: UIView!
     @IBOutlet weak var viwPieChart: PieChartView!
+    @IBOutlet weak var lblCategoryName: UILabel!
+    @IBOutlet weak var lblBudget: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viwBack.isHidden = true
+        viwShadow.isHidden = true
+        
         viwBack.layer.cornerRadius = 20
         viwBack.clipsToBounds = true
         viwShadow.addShadowView()
@@ -33,9 +39,15 @@ class ExpensesDetailVC: UIViewController {
 
 extension ExpensesDetailVC: ExpensesCategoryTVCDelegate {
     
-    func ExpenseDetail(id: Int) {
-        viwBack.backgroundColor = Constant.SECONDARY_COLOR_THEMES[id]
-        viwHeader.backgroundColor = Constant.PRIMARY_COLOR_THEMES[id]
-
+    func ExpenseDetail(categoryData: CategoryData, categoryManageObject: NSManagedObject) {
+        
+        viwBack.backgroundColor   = Constant.SECONDARY_COLOR_THEMES[categoryData.colour]
+        viwHeader.backgroundColor = Constant.PRIMARY_COLOR_THEMES[categoryData.colour]
+        
+        viwBack.isHidden = false
+        viwShadow.isHidden = false
+        
+        self.lblCategoryName.text = categoryData.name.capitalized
+        self.lblBudget.text       = String(format: "£%.02f", NSDecimalNumber(decimal: categoryData.budget).doubleValue)
     }
 }

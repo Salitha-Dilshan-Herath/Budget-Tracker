@@ -21,6 +21,8 @@ extension Category {
     @NSManaged public var notes: String?
     @NSManaged public var colour: Int64
     @NSManaged public var expenses: NSSet?
+    @NSManaged public var tap: Int64
+
 
 }
 
