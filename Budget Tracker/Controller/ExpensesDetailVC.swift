@@ -16,6 +16,8 @@ class ExpensesDetailVC: UIViewController {
     @IBOutlet weak var viwPieChart: PieChartView!
     @IBOutlet weak var lblCategoryName: UILabel!
     @IBOutlet weak var lblBudget: UILabel!
+    @IBOutlet weak var lblSpent: UILabel!
+    @IBOutlet weak var lblRemaining: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +41,20 @@ class ExpensesDetailVC: UIViewController {
 
 extension ExpensesDetailVC: ExpensesCategoryTVCDelegate {
     
-    func ExpenseDetail(categoryData: CategoryData, categoryManageObject: NSManagedObject) {
+    func ExpenseDetail(categoryData: Category, categoryManageObject: NSManagedObject) {
         
-        viwBack.backgroundColor   = Constant.SECONDARY_COLOR_THEMES[categoryData.colour]
-        viwHeader.backgroundColor = Constant.PRIMARY_COLOR_THEMES[categoryData.colour]
+        viwBack.backgroundColor   = Constant.SECONDARY_COLOR_THEMES[Int(categoryData.colour)]
+        viwHeader.backgroundColor = Constant.PRIMARY_COLOR_THEMES[Int(categoryData.colour)]
         
         viwBack.isHidden = false
         viwShadow.isHidden = false
         
-        self.lblCategoryName.text = categoryData.name.capitalized
-        self.lblBudget.text       = String(format: "£%.02f", NSDecimalNumber(decimal: categoryData.budget).doubleValue)
+        self.lblCategoryName.text = categoryData.name?.capitalized
+        self.lblBudget.text       = String(format: "£%.02f", NSDecimalNumber(decimal: categoryData.budget! as Decimal).doubleValue)
+        
+        let expenses = (categoryData.expenses?.allObjects as! [Expense])
+        
+        print(expenses)
+
     }
 }

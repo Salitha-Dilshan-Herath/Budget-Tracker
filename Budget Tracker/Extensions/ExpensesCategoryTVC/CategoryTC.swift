@@ -13,7 +13,7 @@ protocol ExpenseTCDelegate {
     
 }
 
-class ExpenseTC: UITableViewCell {
+class CategoryTC: UITableViewCell {
 
     @IBOutlet weak var viwBack: UIView!
     @IBOutlet weak var viwShadow: UIView!
@@ -26,18 +26,10 @@ class ExpenseTC: UITableViewCell {
     override var isSelected: Bool  {
         didSet{
             if self.isSelected {
-                UIView.animate(withDuration: 0.3) { // for animation effect
-                    self.viwBack.layer.borderColor = UIColor.link.cgColor
-                    self.viwBack.layer.borderWidth = 2
-
-                }
+               
             }
             else {
-                UIView.animate(withDuration: 0.3) { // for animation effect
-                    
-                    self.viwBack.layer.borderColor = UIColor.clear.cgColor
-                    
-                }
+               
             }
         }
     }
@@ -60,23 +52,38 @@ class ExpenseTC: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+        if selected {
+            UIView.animate(withDuration: 0.3) { // for animation effect
+                self.viwBack.layer.borderColor = UIColor.link.cgColor
+                self.viwBack.layer.borderWidth = 2
+
+            }
+        } else {
+            
+            UIView.animate(withDuration: 0.3) { // for animation effect
+                
+                self.viwBack.layer.borderColor = UIColor.clear.cgColor
+                
+            }
+        }
 
     }
     
-    func setupCell(category: CategoryData)  {
+    func setupCell(category: Category)  {
         
-        self.viwBack.backgroundColor   = Constant.PRIMARY_COLOR_THEMES[category.colour]
-        self.viwDetail.backgroundColor = Constant.SECONDARY_COLOR_THEMES[category.colour]
+        self.viwBack.backgroundColor   = Constant.PRIMARY_COLOR_THEMES[Int(category.colour)]
+        self.viwDetail.backgroundColor = Constant.SECONDARY_COLOR_THEMES[Int(category.colour)]
         self.selectionStyle = .none
         
-        self.lblCategoryName.text = category.name.capitalized
-        self.lblbudget.text       = String(format: "Budget £%.02f", NSDecimalNumber(decimal: category.budget).doubleValue)
+        self.lblCategoryName.text = category.name?.capitalized
+        self.lblbudget.text       = String(format: "Budget £%.02f", NSDecimalNumber(decimal: category.budget! as Decimal).doubleValue)
         
-        if category.notes == "" {
+        if category.notes == nil || category.notes == "" {
             self.constaraintNoteLabel.constant = 120
         } else{
             self.constaraintNoteLabel.constant = 71.5
-            self.lblNote.text         = "Note: " + category.notes
+            self.lblNote.text         = "Note: " + category.notes!
 
         }
     }

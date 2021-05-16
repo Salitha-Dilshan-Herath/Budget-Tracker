@@ -10,23 +10,25 @@ import CoreData
 
 protocol ExpensesCategoryTVCDelegate: class {
     
-    func ExpenseDetail(categoryData:CategoryData, categoryManageObject: NSManagedObject)
+    func ExpenseDetail(categoryData:Category, categoryManageObject: NSManagedObject)
 }
 
 class ExpensesCategoryTVC: UITableViewController {
     
-    
+    //MARK: - Instance Variables
     weak var delegate: ExpensesCategoryTVCDelegate?
     var dataManager = CoreDataManager()
     var categoryManageObjects = [NSManagedObject]()
-    var categoryList = [CategoryData]()
+    var selectedCategory: Category!
     var selectedCategoryIndex = -1
+    var selectedOrderType: CategoryOrder = .tap
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    //MARK: - @IBActions
     @IBAction func addCategoryBtnTap(_ sender: UIBarButtonItem) {
         
         let addNewCategory = self.storyboard!.instantiateViewController(withIdentifier: "AddNewCategoryVC") as! AddNewCategoryVC
@@ -37,65 +39,51 @@ class ExpensesCategoryTVC: UITableViewController {
         let popController  = addNewCategory.popoverPresentationController
         popController?.permittedArrowDirections = .up
         popController?.barButtonItem = sender
-
+        
         present(addNewCategory, animated: true, completion: nil)
-        print("tap")
     }
     
     @IBAction func sortBtnTap(_ sender: Any) {
         
-        self.categoryList = self.categoryList.sorted { $0.name.lowercased() < $1.name.lowercased() }
+        self.selectedOrderType = .alphabetically
+        self.categoryManageObjects.removeAll()
+        self.categoryManageObjects = dataManager.getCategoryList(order: self.selectedOrderType)
         self.tableView.reloadWithAnimation()
     }
     
-    //Mark: Custom methods
+    //MARK: Custom methods
     func setupUI()  {
-        self.tableView.register(UINib(nibName: "ExpenseTC", bundle: nil), forCellReuseIdentifier: "expense")
-        self.categoryManageObjects = dataManager.getCategoryList()
+        self.tableView.register(UINib(nibName: "CategoryTC", bundle: nil), forCellReuseIdentifier: "cateogry")
+        self.categoryManageObjects = dataManager.getCategoryList(order: self.selectedOrderType)
         self.setupTable()
     }
     
     func setupTable()  {
                 
-        self.convertCategoryData()
-        
-        if self.categoryList.count > 0 {
-            self.categoryList = self.categoryList.sorted { $0.tap > $1.tap }
+        if self.categoryManageObjects.count > 0 {
             self.tableView.reloadWithAnimation()
-            self.tableView.selectRow(at: IndexPath(row: 0, section: 0) as IndexPath, animated: true, scrollPosition:UITableView.ScrollPosition.none)
-
         }
     }
     
-    func updateCategoryTapCount(category: CategoryData, catObj: NSManagedObject)  {
+    func updateCategoryTapCount()  {
+    
+        (categoryManageObjects[selectedCategoryIndex] as! Category).tap += 1
         
-        var new_category = category
-        new_category.tap += 1
-        
-        dataManager.updateCategory(categoryDetail: new_category, categoryObj: catObj) {
+        let up_category = categoryManageObjects[selectedCategoryIndex] as! Category
+        let new_category = CategoryData(name: up_category.name!, budget: up_category.budget! as Decimal, colour: Int(up_category.colour), notes: up_category.notes , tap: Int(up_category.tap))
+
+        dataManager.updateCategory(categoryDetail: new_category, categoryObj: self.categoryManageObjects[selectedCategoryIndex]) {
             result in
-
+            
             if result {
-
-                  self.categoryManageObjects = self.dataManager.getCategoryList()
-
+                
+                print("update category tap count success")
+                
             } else {
-
+                
                 print("update category tap count failed")
-
+                
             }
-
-        }
-    }
-    
-    func convertCategoryData()  {
-        
-        self.categoryList.removeAll()
-
-        self.categoryManageObjects.forEach { (nsObject) in
-            
-            self.categoryList.append(CategoryData(name: nsObject.value(forKey: "name") as! String, budget: nsObject.value(forKey: "budget") as! Decimal, colour: nsObject.value(forKey: "colour") as! Int, notes: nsObject.value(forKey: "notes") as? String ?? "", tap: nsObject.value(forKey: "tap") as! Int))
-            
         }
     }
 }
@@ -112,11 +100,11 @@ extension ExpensesCategoryTVC: ExpenseTCDelegate {
         let controllerPopover = self.storyboard?.instantiateViewController(withIdentifier: "AddNewCategoryVC") as? AddNewCategoryVC
         controllerPopover?.modalPresentationStyle = .popover
         controllerPopover?.preferredContentSize = CGSize(width: 350, height: 390)
-        controllerPopover?.categoryData = self.categoryList[index]
+        controllerPopover?.categoryData = self.selectedCategory
         controllerPopover?.categoryManageObj = self.categoryManageObjects[index]
         controllerPopover?.isEdit = true
         controllerPopover?.delegate = self
-
+        
         if let popoverPC = controllerPopover?.popoverPresentationController {
             popoverPC.permittedArrowDirections = .left
             popoverPC.sourceView = self.view
@@ -134,9 +122,7 @@ extension ExpensesCategoryTVC: AddNewCategoryVCDelegate {
     func updateTable() {
         
         self.categoryManageObjects.removeAll()
-        self.categoryList.removeAll()
-        self.categoryManageObjects = dataManager.getCategoryList()
-        self.convertCategoryData()
+        self.categoryManageObjects = dataManager.getCategoryList(order: self.selectedOrderType)
         self.tableView.reloadData()
     }
 }

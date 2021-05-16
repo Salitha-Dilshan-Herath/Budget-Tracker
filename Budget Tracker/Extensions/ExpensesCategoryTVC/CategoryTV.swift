@@ -10,7 +10,6 @@ import UIKit
 
 extension ExpensesCategoryTVC {
     
-    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -19,17 +18,19 @@ extension ExpensesCategoryTVC {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categoryList.count
+        return categoryManageObjects.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as! ExpenseTC
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cateogry", for: indexPath) as! CategoryTC
         
-        cell.setupCell(category: self.categoryList[indexPath.row])
+        let category = self.categoryManageObjects[indexPath.row] as! Category
+        cell.setupCell(category: category)
         cell.delegate = self
         cell.index = indexPath.row
 
+   
         return cell
     }
     
@@ -37,13 +38,11 @@ extension ExpensesCategoryTVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.selectedCategoryIndex = indexPath.row
+        self.selectedCategory = self.categoryManageObjects[indexPath.row] as? Category
+
+        self.delegate?.ExpenseDetail(categoryData: selectedCategory, categoryManageObject: categoryManageObjects[indexPath.row])
         
-        self.delegate?.ExpenseDetail(categoryData: categoryList[indexPath.row], categoryManageObject: categoryManageObjects[indexPath.row])
-        
-        self.updateCategoryTapCount(category: categoryList[indexPath.row], catObj: categoryManageObjects[indexPath.row])
-        
-        let cell = tableView.cellForRow(at: indexPath) as! ExpenseTC
-        cell.isSelected = true
+        self.updateCategoryTapCount()
 
     }
     
@@ -64,8 +63,7 @@ extension ExpensesCategoryTVC {
                         result in
                         
                         if result {
-                            self.categoryManageObjects = self.dataManager.getCategoryList()
-                            self.convertCategoryData()
+                            self.categoryManageObjects = self.dataManager.getCategoryList(order: self.selectedOrderType)
                             self.tableView.reloadData()
                         } else {
                             print("Delete failed")

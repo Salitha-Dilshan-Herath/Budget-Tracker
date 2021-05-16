@@ -84,13 +84,35 @@ struct CoreDataManager {
         
     }
     
-    func getCategoryList() -> [NSManagedObject]  {
+    func getCategoryList(order by: CategoryOrder) -> [NSManagedObject]  {
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
+
+        
+        switch by {
+       
+        case .alphabetically:
+            let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            let sortDescriptors = [sortDescriptor]
+            fetch.sortDescriptors = sortDescriptors
+        case .tap:
+            let sortDescriptor = NSSortDescriptor(key: "tap", ascending: true)
+            let sortDescriptors = [sortDescriptor]
+            fetch.sortDescriptors = sortDescriptors
+        }
         
         do {
-            let result = try self.manageContent!.fetch(request)
-            return result as? [NSManagedObject] ?? [NSManagedObject]()
+            let result = try self.manageContent!.fetch(fetch)
+            
+            switch by {
+          
+            case .alphabetically:
+                return (result as? [NSManagedObject] ?? [NSManagedObject]())
+
+            case .tap:
+                return (result as? [NSManagedObject] ?? [NSManagedObject]()).reversed()
+
+            }
             
         } catch {
             

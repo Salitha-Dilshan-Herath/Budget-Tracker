@@ -28,10 +28,10 @@ class AddNewCategoryVC: UIViewController {
     var selected_color_index = 0
     var dataManager = CoreDataManager()
     var categoryManageObj: NSManagedObject?
-    var categoryData: CategoryData?
+    var categoryData: Category?
     var isEdit = false
     var delegate:AddNewCategoryVCDelegate?
-    
+
     
     //MARK: - Life Cycle Methods
     override func viewDidLoad() {
@@ -77,7 +77,7 @@ class AddNewCategoryVC: UIViewController {
             return
         }
         
-        let new_category = CategoryData(name: category_name, budget: budgetAmount, colour: selected_color_index, notes: note, tap: 0)
+        let new_category = CategoryData(name: category_name, budget: budgetAmount, colour: selected_color_index, notes: note, tap: Int(categoryData!.tap))
         
         if isEdit {
             
@@ -175,7 +175,7 @@ class AddNewCategoryVC: UIViewController {
         guard let catData = categoryData else { return }
         
         self.txtCategoryName.text = catData.name
-        self.txtBudget.text = "\(catData.budget)"
+        self.txtBudget.text = "\(catData.budget ?? 0)"
         self.txtNote.text = catData.notes
         
         btnColorTheme.forEach { (button) in
@@ -184,9 +184,9 @@ class AddNewCategoryVC: UIViewController {
             button.layer.borderColor = UIColor.clear.cgColor
         }
         
-        selected_color_index = catData.colour
-        btnColorTheme[catData.colour].layer.borderWidth = 2.5
-        btnColorTheme[catData.colour].layer.borderColor = UIColor.link.cgColor
+        selected_color_index = Int(catData.colour)
+        btnColorTheme[Int(catData.colour)].layer.borderWidth = 2.5
+        btnColorTheme[Int(catData.colour)].layer.borderColor = UIColor.link.cgColor
     }
     
 }

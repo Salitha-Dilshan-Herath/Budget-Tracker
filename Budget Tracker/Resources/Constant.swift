@@ -22,3 +22,7 @@ struct Constant {
 
 }
 
+enum CategoryOrder {
+    case alphabetically, tap
+}
+

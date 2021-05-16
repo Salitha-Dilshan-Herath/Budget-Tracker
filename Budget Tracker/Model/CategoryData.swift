@@ -12,6 +12,6 @@ struct CategoryData {
     let name: String
     let budget: Decimal
     let colour: Int
-    let notes: String
+    let notes: String?
     var tap: Int
 }
