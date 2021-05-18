@@ -31,6 +31,11 @@
 		E5979F482642AE970016A924 /* ExpensesCategoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5979F472642AE970016A924 /* ExpensesCategoryTVC.swift */; };
 		E5979F4E264572F60016A924 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5979F4D264572F60016A924 /* Constant.swift */; };
 		E5979F51264574370016A924 /* AddNewCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5979F50264574370016A924 /* AddNewCategoryVC.swift */; };
+		E5AF354126512CA30010BE06 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF354026512CA30010BE06 /* Helper.swift */; };
+		E5AF354626521CE40010BE06 /* ExpenseTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF354426521CE40010BE06 /* ExpenseTC.swift */; };
+		E5AF354726521CE40010BE06 /* ExpenseTC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AF354526521CE40010BE06 /* ExpenseTC.xib */; };
+		E5AF354E2652D18B0010BE06 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF354D2652D18B0010BE06 /* CustomProgressBar.swift */; };
+		E5AF35512652D9EE0010BE06 /* ExpenseTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF35502652D9EE0010BE06 /* ExpenseTV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +65,11 @@
 		E5979F472642AE970016A924 /* ExpensesCategoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesCategoryTVC.swift; sourceTree = "<group>"; };
 		E5979F4D264572F60016A924 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		E5979F50264574370016A924 /* AddNewCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCategoryVC.swift; sourceTree = "<group>"; };
+		E5AF354026512CA30010BE06 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		E5AF354426521CE40010BE06 /* ExpenseTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTC.swift; sourceTree = "<group>"; };
+		E5AF354526521CE40010BE06 /* ExpenseTC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseTC.xib; sourceTree = "<group>"; };
+		E5AF354D2652D18B0010BE06 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
+		E5AF35502652D9EE0010BE06 /* ExpenseTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTV.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,11 +86,14 @@
 		E52AE7912646555B00FC2769 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E5AF354326521C9C0010BE06 /* ExpensesDetailVC */,
 				E52AE7C6264E8D2F00FC2769 /* ExpensesCategoryTVC */,
 				E52AE7922646557400FC2769 /* UIExtenstions.swift */,
 				E52AE79E2649636900FC2769 /* PieChart.swift */,
 				E52AE7B4264AE62600FC2769 /* Alert.swift */,
 				E52AE7B7264B880C00FC2769 /* CoreDataManager.swift */,
+				E5AF354026512CA30010BE06 /* Helper.swift */,
+				E5AF354D2652D18B0010BE06 /* CustomProgressBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -160,6 +173,7 @@
 				E5979F2C264143220016A924 /* LaunchScreen.storyboard */,
 				E5979F24264143200016A924 /* Main.storyboard */,
 				E52AE7962646AF2100FC2769 /* CategoryTC.xib */,
+				E5AF354526521CE40010BE06 /* ExpenseTC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -183,6 +197,15 @@
 				E5979F4D264572F60016A924 /* Constant.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E5AF354326521C9C0010BE06 /* ExpensesDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				E5AF354426521CE40010BE06 /* ExpenseTC.swift */,
+				E5AF35502652D9EE0010BE06 /* ExpenseTV.swift */,
+			);
+			path = ExpensesDetailVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +267,7 @@
 			files = (
 				E5979F2E264143220016A924 /* LaunchScreen.storyboard in Resources */,
 				E52AE7982646AF2100FC2769 /* CategoryTC.xib in Resources */,
+				E5AF354726521CE40010BE06 /* ExpenseTC.xib in Resources */,
 				E5979F2B264143220016A924 /* Assets.xcassets in Resources */,
 				E5979F26264143200016A924 /* Main.storyboard in Resources */,
 			);
@@ -259,11 +283,15 @@
 				E5979F4E264572F60016A924 /* Constant.swift in Sources */,
 				E5979F482642AE970016A924 /* ExpensesCategoryTVC.swift in Sources */,
 				E5979F452642ACA80016A924 /* ExpensesDetailVC.swift in Sources */,
+				E5AF354E2652D18B0010BE06 /* CustomProgressBar.swift in Sources */,
+				E5AF35512652D9EE0010BE06 /* ExpenseTV.swift in Sources */,
 				E52AE7B5264AE62600FC2769 /* Alert.swift in Sources */,
 				E52AE7AA264AD37200FC2769 /* Category+CoreDataClass.swift in Sources */,
 				E52AE7972646AF2100FC2769 /* CategoryTC.swift in Sources */,
 				E52AE7B8264B880D00FC2769 /* CoreDataManager.swift in Sources */,
+				E5AF354626521CE40010BE06 /* ExpenseTC.swift in Sources */,
 				E52AE7A3264A1FB500FC2769 /* AddNewExpenseVC.swift in Sources */,
+				E5AF354126512CA30010BE06 /* Helper.swift in Sources */,
 				E52AE7C8264E8D6300FC2769 /* CategoryTV.swift in Sources */,
 				E5979F51264574370016A924 /* AddNewCategoryVC.swift in Sources */,
 				E52AE7BB264B8E4300FC2769 /* CategoryData.swift in Sources */,

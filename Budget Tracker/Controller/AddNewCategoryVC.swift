@@ -77,7 +77,7 @@ class AddNewCategoryVC: UIViewController {
             return
         }
         
-        let new_category = CategoryData(name: category_name, budget: budgetAmount, colour: selected_color_index, notes: note, tap: Int(categoryData!.tap))
+        let new_category = CategoryData(name: category_name, budget: budgetAmount, colour: selected_color_index, notes: note, tap: Int(categoryData?.tap ?? 0))
         
         if isEdit {
             
@@ -95,7 +95,7 @@ class AddNewCategoryVC: UIViewController {
                     
                 } else {
                     
-                    Alert.showMessage(msg: "An error occured while saving the project", on: self)
+                    Alert.showMessage(msg: "An error occurred while saving the project", on: self)
                     
                 }
                 
@@ -119,7 +119,7 @@ class AddNewCategoryVC: UIViewController {
                     
                 } else {
                     
-                    Alert.showMessage(msg: "An error occured while saving the project", on: self)
+                    Alert.showMessage(msg: "An error occurred while saving the project", on: self)
                     
                 }
             }

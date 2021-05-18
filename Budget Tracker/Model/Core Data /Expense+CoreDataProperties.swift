@@ -21,8 +21,8 @@ extension Expense {
     @NSManaged public var occurrence: Int64
     @NSManaged public var note: String?
     @NSManaged public var reminder: Bool
+    @NSManaged public var eventId: String?
     @NSManaged public var category: Category?
-
 }
 
 extension Expense : Identifiable {

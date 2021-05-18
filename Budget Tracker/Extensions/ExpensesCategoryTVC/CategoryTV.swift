@@ -38,9 +38,13 @@ extension ExpensesCategoryTVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.selectedCategoryIndex = indexPath.row
+        
         self.selectedCategory = self.categoryManageObjects[indexPath.row] as? Category
 
-        self.delegate?.ExpenseDetail(categoryData: selectedCategory, categoryManageObject: categoryManageObjects[indexPath.row])
+        if let updateCategory = dataManager.getCategory(name: self.selectedCategory.name!)?.first {
+            self.selectedCategory     = updateCategory
+            self.delegate?.ExpenseDetail(categoryData: selectedCategory, categoryManageObject: categoryManageObjects[indexPath.row])
+        }
         
         self.updateCategoryTapCount()
 

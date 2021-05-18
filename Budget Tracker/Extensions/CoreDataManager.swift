@@ -23,6 +23,7 @@ struct CoreDataManager {
         
     }
     
+    //MARK: - Category Functions
     func saveCategory(categoryDetail: CategoryData, completion: @escaping (Bool) -> Void) {
         
         let categoryEntity    = NSEntityDescription.entity(forEntityName: "Category", in: self.manageContent!)!
@@ -113,6 +114,67 @@ struct CoreDataManager {
                 return (result as? [NSManagedObject] ?? [NSManagedObject]()).reversed()
 
             }
+            
+        } catch {
+            
+            print("Failed")
+            return [NSManagedObject]()
+        }
+    }
+    
+    func getCategory(name: String) -> [Category]? {
+        
+        let fetchRequest : NSFetchRequest<Category> = Category.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+
+        do {
+            let result = try self.manageContent!.fetch(fetchRequest)
+
+            return (result as [Category])
+
+            
+        } catch {
+            
+            print("Failed")
+            return nil
+        }
+    }
+    
+    //MARK: - Expenses Functions
+    func saveExpense(amount: Decimal, note: String, dueDate: Date, addToCalendar:Bool, calendarId: String?, occur: Int, category: Category, completion: @escaping (Bool) -> Void) {
+        
+        let expenseEntity = NSEntityDescription.entity(forEntityName: "Expense", in: self.manageContent!)!
+        let expense       = NSManagedObject(entity: expenseEntity, insertInto: manageContent)
+        
+        expense.setValue(note, forKey: "note")
+        expense.setValue(amount, forKey: "amount")
+        expense.setValue(dueDate, forKey: "date")
+        expense.setValue(calendarId, forKey: "eventId")
+        expense.setValue(occur, forKey: "occurrence")
+        expense.setValue(addToCalendar, forKey: "reminder")
+        
+        category.addToExpenses(expense as! Expense)
+        
+        do {
+            try self.manageContent!.save()
+            
+            completion(true)
+            
+        } catch _ as NSError {
+            
+            completion(true)
+        }
+    }
+    
+    func getExpenseList() -> [NSManagedObject]  {
+        
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
+
+        
+        do {
+            let result = try self.manageContent!.fetch(fetch)
+            return (result as? [NSManagedObject] ?? [NSManagedObject]())
+
             
         } catch {
             

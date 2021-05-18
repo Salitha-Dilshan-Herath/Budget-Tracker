@@ -67,7 +67,6 @@ class CategoryTC: UITableViewCell {
                 
             }
         }
-
     }
     
     func setupCell(category: Category)  {
