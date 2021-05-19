@@ -73,6 +73,8 @@ class ExpenseTC: UITableViewCell {
         lblDueDate.text   = self.dateFormatter.string(from: expense.date!)
         lblBudget.text    = String(format: "Amount £%.02f", NSDecimalNumber(decimal: expense.amount! as Decimal).doubleValue)
         
+        imgEvent.tintColor = Constant.PRIMARY_COLOR_THEMES[colorIndex]
+        
         if expense.reminder {
             imgEvent.isHidden = false
         } else {

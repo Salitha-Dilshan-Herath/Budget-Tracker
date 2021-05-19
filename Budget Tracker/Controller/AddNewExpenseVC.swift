@@ -33,7 +33,7 @@ class AddNewExpenseVC: UIViewController {
     var delegate: AddNewExpenseVCDelegate?
     var dataManager = CoreDataManager()
     var remainingAmount:Decimal = 0
-
+    
     //MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +75,6 @@ class AddNewExpenseVC: UIViewController {
         let note   = txtNote.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let due_date = datePickerDueDate.date
         let addToCalendar = switchCalendar.isOn
-       
         
         if note == "" {
             
@@ -102,11 +101,18 @@ class AddNewExpenseVC: UIViewController {
             return
         }
         
+        if isEdit {
+            updateExpense()
+            return
+        }
+        
         if budgetAmount > remainingAmount {
             
             Alert.showMessage(msg: "The budget amount should be lower than remaining amount ", on: self)
             return
         }
+        
+       
         
         if addToCalendar {
             
@@ -168,6 +174,100 @@ class AddNewExpenseVC: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func updateExpense()  {
+        
+        let amount = txtAmount.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let note   = txtNote.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let due_date = datePickerDueDate.date
+        let addToCalendar = switchCalendar.isOn
+        
+    
+        guard let budgetAmount = Decimal(string: amount) else {return}
+        
+        if budgetAmount > self.selectedCategory.budget!.decimalValue {
+            
+            Alert.showMessage(msg: "The amount should be lower than total amount ", on: self)
+            return
+        }
+        
+        ///MARK: - check current expense have a reminder
+        if self.selectedExpense.reminder {
+            
+            ///MARK: - if have reminder check new changes
+            if addToCalendar {
+                
+                Helper.updateEvent(title: "Reminder on \(note)", endDate: due_date, eventIdentifier: self.selectedExpense.eventId!) {
+                    
+                    (status, result) in
+                    
+                    if status {
+                        self.selectedExpense.eventId = result
+                    } else {
+                        print("Event update failed")
+                    }
+                }
+                
+            } else {
+                
+                if self.selectedExpense.eventId != nil && self.selectedExpense.eventId != "" {
+                    Helper.deleteEvent(eventIdentifier: self.selectedExpense.eventId!)
+                    self.selectedExpense.eventId = ""
+                }
+            }
+            
+            ///MARK: - update changes
+            self.dataManager.updateExpense(amount: budgetAmount, note: note, dueDate: due_date, addToCalendar: addToCalendar, calendarId: self.selectedExpense.eventId, occur: self.selectedOccur, oldExpenseName: self.selectedExpense.note!, category: self.selectedCategory) {
+                result in
+                
+                if result {
+                    
+                    Alert.showMessageWithTask(on: self, msg: "Expense update successful"){
+                        self.delegate?.updateTable()
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }
+                    
+                } else {
+                    
+                    Alert.showMessage(msg: "An error occurred while updating the expense", on: self)
+                    
+                }
+            }
+            
+        } else {
+            
+            Helper.createEvent(title: "Reminder on \(note)", endDate: due_date) {
+                (status, result) in
+                
+                if status {
+                    
+                    self.dataManager.updateExpense(amount: budgetAmount, note: note, dueDate: due_date, addToCalendar: addToCalendar, calendarId: result, occur: self.selectedOccur, oldExpenseName: self.selectedExpense.note!, category: self.selectedCategory){
+                        
+                        result in
+                        
+                        if result {
+                            
+                            Alert.showMessageWithTask(on: self, msg: "Expense update successful"){
+                                self.delegate?.updateTable()
+                                self.dismiss(animated: true, completion: nil)
+                                
+                            }
+                            
+                        } else {
+                            
+                            Alert.showMessage(msg: "An error occurred while updating the expense", on: self)
+                            
+                        }
+                    }
+                    
+                } else {
+                    
+                    Alert.showMessage(msg: result, on: self)
+                }
+                
+            }
+        }
+    }
 }
 
 extension AddNewExpenseVC: UIPickerViewDelegate, UIPickerViewDataSource {

@@ -10,7 +10,7 @@ import CoreData
 
 protocol ExpensesCategoryTVCDelegate: class {
     
-    func ExpenseDetail(categoryData:Category, categoryManageObject: NSManagedObject)
+    func ExpenseDetail(categoryData:Category)
 }
 
 class ExpensesCategoryTVC: UITableViewController {
@@ -77,11 +77,11 @@ class ExpensesCategoryTVC: UITableViewController {
             
             if result {
                 
-                print("update category tap count success")
+                //print("update category tap count success")
                 
             } else {
                 
-                print("update category tap count failed")
+                //print("update category tap count failed")
                 
             }
         }

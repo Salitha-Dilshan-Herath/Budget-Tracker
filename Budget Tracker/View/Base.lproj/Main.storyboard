@@ -172,17 +172,19 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="66.5"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="LnM-X4-U64">
-                                                                                        <rect key="frame" x="20" y="22" width="26" height="22"/>
+                                                                                        <rect key="frame" x="20" y="22" width="26" height="21.5"/>
                                                                                         <color key="tintColor" red="0.92941176470588238" green="0.67450980392156867" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="width" constant="26" id="QmN-Sw-7Bv"/>
+                                                                                            <constraint firstAttribute="height" constant="26" id="ztd-QU-moH"/>
+                                                                                        </constraints>
                                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                     </imageView>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                 <constraints>
-                                                                                    <constraint firstItem="LnM-X4-U64" firstAttribute="leading" secondItem="N5Y-Om-zxE" secondAttribute="leading" constant="20" id="ggX-dZ-bTy"/>
-                                                                                    <constraint firstItem="LnM-X4-U64" firstAttribute="top" secondItem="N5Y-Om-zxE" secondAttribute="top" constant="20" id="rDs-7v-DVh"/>
-                                                                                    <constraint firstAttribute="trailing" secondItem="LnM-X4-U64" secondAttribute="trailing" constant="20" id="uqB-Et-HPx"/>
-                                                                                    <constraint firstAttribute="bottom" secondItem="LnM-X4-U64" secondAttribute="bottom" constant="20" id="wCP-Rv-DX5"/>
+                                                                                    <constraint firstItem="LnM-X4-U64" firstAttribute="centerX" secondItem="N5Y-Om-zxE" secondAttribute="centerX" id="PJV-8m-SmK"/>
+                                                                                    <constraint firstItem="LnM-X4-U64" firstAttribute="centerY" secondItem="N5Y-Om-zxE" secondAttribute="centerY" id="nzH-fM-yjb"/>
                                                                                 </constraints>
                                                                             </view>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Pc-Zl-rEm">
@@ -214,17 +216,19 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="66.5"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="d3H-Qk-f17">
-                                                                                                <rect key="frame" x="20" y="22" width="26" height="22"/>
+                                                                                                <rect key="frame" x="20" y="22" width="26" height="21.5"/>
                                                                                                 <color key="tintColor" red="0.84313725490196079" green="0.33333333333333331" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="height" constant="26" id="Hvt-8i-rch"/>
+                                                                                                    <constraint firstAttribute="width" constant="26" id="YV1-9a-tOv"/>
+                                                                                                </constraints>
                                                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                             </imageView>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="bottom" secondItem="d3H-Qk-f17" secondAttribute="bottom" constant="20" id="7YF-mN-gup"/>
-                                                                                            <constraint firstItem="d3H-Qk-f17" firstAttribute="leading" secondItem="Y55-B3-xX2" secondAttribute="leading" constant="20" id="cko-tm-URt"/>
-                                                                                            <constraint firstItem="d3H-Qk-f17" firstAttribute="top" secondItem="Y55-B3-xX2" secondAttribute="top" constant="20" id="pM1-Qc-p1T"/>
-                                                                                            <constraint firstAttribute="trailing" secondItem="d3H-Qk-f17" secondAttribute="trailing" constant="20" id="ve6-Ze-rsP"/>
+                                                                                            <constraint firstItem="d3H-Qk-f17" firstAttribute="centerX" secondItem="Y55-B3-xX2" secondAttribute="centerX" id="2TR-6F-3Dc"/>
+                                                                                            <constraint firstItem="d3H-Qk-f17" firstAttribute="centerY" secondItem="Y55-B3-xX2" secondAttribute="centerY" id="h3d-V8-5Xn"/>
                                                                                         </constraints>
                                                                                     </view>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7H-2X-IZ6">
@@ -267,15 +271,17 @@
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="LvZ-Ey-Sv0">
                                                                                                 <rect key="frame" x="20" y="22" width="26" height="21.5"/>
                                                                                                 <color key="tintColor" red="0.34509803921568627" green="0.72156862745098038" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="width" constant="26" id="ceC-FQ-FLJ"/>
+                                                                                                    <constraint firstAttribute="height" constant="26" id="zMb-c4-dGO"/>
+                                                                                                </constraints>
                                                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                             </imageView>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="trailing" secondItem="LvZ-Ey-Sv0" secondAttribute="trailing" constant="20" id="2bo-1I-GqY"/>
-                                                                                            <constraint firstItem="LvZ-Ey-Sv0" firstAttribute="top" secondItem="ECe-pB-uYo" secondAttribute="top" constant="20" id="EVe-BZ-Ayh"/>
-                                                                                            <constraint firstItem="LvZ-Ey-Sv0" firstAttribute="leading" secondItem="ECe-pB-uYo" secondAttribute="leading" constant="20" id="LVt-i6-ZAO"/>
-                                                                                            <constraint firstAttribute="bottom" secondItem="LvZ-Ey-Sv0" secondAttribute="bottom" constant="20" id="hcA-mj-tGN"/>
+                                                                                            <constraint firstItem="LvZ-Ey-Sv0" firstAttribute="centerY" secondItem="ECe-pB-uYo" secondAttribute="centerY" id="BUF-Zo-E36"/>
+                                                                                            <constraint firstItem="LvZ-Ey-Sv0" firstAttribute="centerX" secondItem="ECe-pB-uYo" secondAttribute="centerX" id="mPD-hl-WqJ"/>
                                                                                         </constraints>
                                                                                     </view>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yof-wZ-F1Y">
@@ -316,17 +322,19 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="66.5"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aQc-lc-Z39">
-                                                                                                <rect key="frame" x="20" y="22" width="26" height="22"/>
+                                                                                                <rect key="frame" x="20" y="22.5" width="26" height="21.5"/>
                                                                                                 <color key="tintColor" red="0.44705882352941173" green="0.51372549019607838" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="height" constant="26" id="DAx-Nu-BTR"/>
+                                                                                                    <constraint firstAttribute="width" constant="26" id="ZT5-d4-jHd"/>
+                                                                                                </constraints>
                                                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                             </imageView>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="bottom" secondItem="aQc-lc-Z39" secondAttribute="bottom" constant="20" id="BdM-tA-u1v"/>
-                                                                                            <constraint firstItem="aQc-lc-Z39" firstAttribute="top" secondItem="EBo-Xh-O4a" secondAttribute="top" constant="20" id="doR-YN-VKa"/>
-                                                                                            <constraint firstItem="aQc-lc-Z39" firstAttribute="leading" secondItem="EBo-Xh-O4a" secondAttribute="leading" constant="20" id="yWi-14-dpz"/>
-                                                                                            <constraint firstAttribute="trailing" secondItem="aQc-lc-Z39" secondAttribute="trailing" constant="20" id="z2j-12-lWD"/>
+                                                                                            <constraint firstItem="aQc-lc-Z39" firstAttribute="centerY" secondItem="EBo-Xh-O4a" secondAttribute="centerY" id="VPE-ui-tF2"/>
+                                                                                            <constraint firstItem="aQc-lc-Z39" firstAttribute="centerX" secondItem="EBo-Xh-O4a" secondAttribute="centerX" id="vn4-V5-8g2"/>
                                                                                         </constraints>
                                                                                     </view>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oah-4D-aBD">
@@ -367,17 +375,19 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="66.5"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WZc-Ck-TGq">
-                                                                                                <rect key="frame" x="20" y="22" width="26" height="22"/>
+                                                                                                <rect key="frame" x="20" y="22.5" width="26" height="21.5"/>
                                                                                                 <color key="tintColor" red="0.7803921568627451" green="0.81176470588235294" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="height" constant="26" id="eUo-dn-0QD"/>
+                                                                                                    <constraint firstAttribute="width" constant="26" id="nZR-Aa-9dn"/>
+                                                                                                </constraints>
                                                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                             </imageView>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="trailing" secondItem="WZc-Ck-TGq" secondAttribute="trailing" constant="20" id="Amx-du-JwT"/>
-                                                                                            <constraint firstAttribute="bottom" secondItem="WZc-Ck-TGq" secondAttribute="bottom" constant="20" id="DWb-QG-poR"/>
-                                                                                            <constraint firstItem="WZc-Ck-TGq" firstAttribute="top" secondItem="r9z-J3-fdT" secondAttribute="top" constant="20" id="OTb-rF-9ZN"/>
-                                                                                            <constraint firstItem="WZc-Ck-TGq" firstAttribute="leading" secondItem="r9z-J3-fdT" secondAttribute="leading" constant="20" id="ex1-Gg-ytO"/>
+                                                                                            <constraint firstItem="WZc-Ck-TGq" firstAttribute="centerY" secondItem="r9z-J3-fdT" secondAttribute="centerY" id="8yx-gh-Gk8"/>
+                                                                                            <constraint firstItem="WZc-Ck-TGq" firstAttribute="centerX" secondItem="r9z-J3-fdT" secondAttribute="centerX" id="xF6-AH-TZG"/>
                                                                                         </constraints>
                                                                                     </view>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0OZ-Iw-VUA">
@@ -1065,7 +1075,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWI-qS-YxX">
                                                 <rect key="frame" x="0.0" y="178" width="350" height="64"/>
                                                 <subviews>
-                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="TqO-Fc-1Fk">
+                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="TqO-Fc-1Fk">
                                                         <rect key="frame" x="126.5" y="0.0" width="213.5" height="64"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                     </datePicker>

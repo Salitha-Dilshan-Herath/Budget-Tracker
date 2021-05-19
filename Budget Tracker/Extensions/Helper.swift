@@ -54,7 +54,7 @@ struct Helper {
                 
             } catch (let error){
                 
-                print(error)
+                print("Error on create event: \(error.localizedDescription)")
                 completion(false, error.localizedDescription)
             }
             
@@ -62,39 +62,103 @@ struct Helper {
     }
     
     //MARK: - Removes an event from the Calendar
-    static func deleteEvent(eventIdentifier: String, vc: UIViewController) -> Bool {
+    static func deleteEvent(eventIdentifier: String) {
         
         let eventStore = EKEventStore()
         
-        var isHavePermission = true
         if (EKEventStore.authorizationStatus(for: .event) != EKAuthorizationStatus.authorized) {
             eventStore.requestAccess(to: .event, completion: {
                 granted, error in
                 
-                if error != nil {
-                    isHavePermission = false
+                if granted  {
+                    
+                    let eventToRemove = eventStore.event(withIdentifier: eventIdentifier)
+                    if eventToRemove != nil {
+                        do {
+                            try eventStore.remove(eventToRemove!, span: .thisEvent)
+                        } catch (let error){
+                            
+                            print("Error on delete event: \(error.localizedDescription)")
+                        }
+                    }
+                    
                 }
             })
-        }
-        
-        if !isHavePermission {
-            Alert.showMessage(msg: "No permission to delete a calendar event.", on: vc)
-            return false
-        }
-        
-        
-        var success = false
-        let eventToRemove = eventStore.event(withIdentifier: eventIdentifier)
-        if eventToRemove != nil {
-            do {
-                try eventStore.remove(eventToRemove!, span: .thisEvent)
-                success = true
-            } catch {
-                
-                Alert.showMessage(msg: "Unable to delete calendar event", on: vc)
-                
+            
+        } else {
+            
+            let eventToRemove = eventStore.event(withIdentifier: eventIdentifier)
+            if eventToRemove != nil {
+                do {
+                    try eventStore.remove(eventToRemove!, span: .thisEvent)
+                    
+                } catch  (let error){
+                    
+                    print("Error on delete event: \(error.localizedDescription)")
+                }
             }
         }
-        return success
+    }
+    
+    
+    static func updateEvent(title: String, endDate: Date, eventIdentifier: String,  completion: @escaping (Bool, String) -> Void){
+        
+        ///MARK: - initiate event parameter
+        let eventStore = EKEventStore()
+
+        
+        ///MARK: - check permission
+        if (EKEventStore.authorizationStatus(for: .event) != EKAuthorizationStatus.authorized) {
+            eventStore.requestAccess(to: .event, completion: {
+                granted, error in
+                
+                if !granted{
+                    
+                    completion(false, "No permission to create a calendar event")
+                    
+                } else {
+                    
+                    do {
+                        
+                        let eventToUpdate = eventStore.event(withIdentifier: eventIdentifier)
+                        
+                        if let updateObj = eventToUpdate {
+                            updateObj.title = title
+                            updateObj.endDate = endDate
+                            try eventStore.save(updateObj, span: .thisEvent)
+                            completion(true, updateObj.eventIdentifier)
+                        } else {
+                            completion(false, "")
+                        }
+                       
+                        
+                    } catch  (let error) {
+                        
+                        completion(false, error.localizedDescription)
+                        
+                    }
+                }
+            })
+        } else {
+            
+            do {
+                let eventToUpdate = eventStore.event(withIdentifier: eventIdentifier)
+                
+                if let updateObj = eventToUpdate {
+                    updateObj.title = title
+                    updateObj.endDate = endDate
+                    try eventStore.save(updateObj, span: .thisEvent)
+                    completion(true, updateObj.eventIdentifier)
+                } else {
+                    completion(false, "")
+                }
+                
+            } catch (let error){
+                
+                print("Error on update event: \(error.localizedDescription)")
+                completion(false, error.localizedDescription)
+            }
+            
+        }
     }
 }

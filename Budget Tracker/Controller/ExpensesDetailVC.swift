@@ -31,7 +31,6 @@ class ExpensesDetailVC: UIViewController {
     var spentAmount:Decimal = 0
     var expensesList = [Expense]() {
         didSet {
-            
             updateCalculation()
         }
     }
@@ -40,11 +39,9 @@ class ExpensesDetailVC: UIViewController {
     //MARK: - Life cycle events
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
-        
     }
-    
+
     //MARK: - @IBAction
     @IBAction func addBtnTap(_ sender: UIBarButtonItem) {
         
@@ -183,25 +180,40 @@ class ExpensesDetailVC: UIViewController {
         self.tblExpense.reloadWithAnimation()
         
     }
-}
-
-extension ExpensesDetailVC: ExpensesCategoryTVCDelegate {
     
-    func ExpenseDetail(categoryData: Category, categoryManageObject: NSManagedObject) {
+    func setupViewData(updateCategory: Category)  {
         
-        let sortedList  = (categoryData.expenses?.allObjects as! [Expense])
-        self.totalAmount  = categoryData.budget!.decimalValue
+        viwPieArray.forEach { (viw) in
+            viw.isHidden = true
+        }
+        
+        self.selectedCategory = updateCategory
+        self.totalAmount  = updateCategory.budget!.decimalValue
+        self.selectedExpenseIndex = -1
+        
+        self.expensesList.removeAll()
+        let sortedList = (updateCategory.expenses?.allObjects as! [Expense])
         self.expensesList = sortedList.sorted { $0.amount!.doubleValue > $1.amount!.doubleValue}
-        self.selectedCategory = categoryData
         
         if sortedList.isEmpty {
             
             lblError.text = "No expenses found for this category. Please insert your add new expenses by clicking the + icon"
             
+            viwBack.isHidden   = true
+            viwShadow.isHidden = true
+            
         } else {
             
             setupBackground()
         }
+    }
+}
+
+extension ExpensesDetailVC: ExpensesCategoryTVCDelegate {
+    
+    func ExpenseDetail(categoryData: Category) {
+        
+        setupViewData(updateCategory: categoryData)
         
     }
 }
@@ -211,21 +223,9 @@ extension ExpensesDetailVC: AddNewExpenseVCDelegate {
     func updateTable() {
         
         if let updateCategory = dataManager.getCategory(name: self.selectedCategory.name!)?.first {
-            self.selectedCategory     = updateCategory
-            self.expensesList.removeAll()
             
-            let sortedList = (updateCategory.expenses?.allObjects as! [Expense])
-            self.expensesList = sortedList.sorted { $0.amount!.doubleValue > $1.amount!.doubleValue}
             
-            if sortedList.isEmpty {
-                
-                lblError.text = "No expenses found for this category. Please insert your add new expenses by clicking the + icon"
-                
-            } else {
-                
-                setupBackground()
-            }
-            
+            setupViewData(updateCategory: updateCategory)
         }
     }
 }

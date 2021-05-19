@@ -88,10 +88,9 @@ struct CoreDataManager {
     func getCategoryList(order by: CategoryOrder) -> [NSManagedObject]  {
         
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
-
         
         switch by {
-       
+        
         case .alphabetically:
             let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
             let sortDescriptors = [sortDescriptor]
@@ -106,13 +105,13 @@ struct CoreDataManager {
             let result = try self.manageContent!.fetch(fetch)
             
             switch by {
-          
+            
             case .alphabetically:
                 return (result as? [NSManagedObject] ?? [NSManagedObject]())
-
+                
             case .tap:
                 return (result as? [NSManagedObject] ?? [NSManagedObject]()).reversed()
-
+                
             }
             
         } catch {
@@ -126,16 +125,16 @@ struct CoreDataManager {
         
         let fetchRequest : NSFetchRequest<Category> = Category.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
-
+        
         do {
             let result = try self.manageContent!.fetch(fetchRequest)
-
+            
             return (result as [Category])
-
             
-        } catch {
             
-            print("Failed")
+        } catch (let error){
+            
+            print("Error on category get: \(error.localizedDescription)")
             return nil
         }
     }
@@ -160,26 +159,75 @@ struct CoreDataManager {
             
             completion(true)
             
-        } catch _ as NSError {
+        }  catch (let error){
             
-            completion(true)
+            print("Error on expense save: \(error.localizedDescription)")
+            completion(false)
+            
         }
     }
     
-    func getExpenseList() -> [NSManagedObject]  {
+    func deleteExpense(name: String, completion: @escaping (Bool) -> Void) {
         
-        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
-
+        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "note == %@", name)
+        
         
         do {
-            let result = try self.manageContent!.fetch(fetch)
-            return (result as? [NSManagedObject] ?? [NSManagedObject]())
-
+            let result = try self.manageContent!.fetch(fetchRequest)
             
-        } catch {
+            if let expense = result.first {
+                
+                if let category = getCategory(name: (expense.category?.name)!)?.first{
+                    
+                    category.removeFromExpenses(expense)
+                    self.manageContent!.delete(expense)
+                    try self.manageContent!.save()
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            }
             
-            print("Failed")
-            return [NSManagedObject]()
+            
+        } catch (let error){
+            
+            print("Error on expense deletion: \(error.localizedDescription)")
+            completion(false)
+            
         }
+    }
+    
+    func updateExpense(amount: Decimal, note: String, dueDate: Date, addToCalendar:Bool, calendarId: String?, occur: Int, oldExpenseName: String, category: Category, completion: @escaping (Bool) -> Void) {
+        
+        let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "note == %@", oldExpenseName)
+                
+        do {
+            
+            let result = try self.manageContent!.fetch(fetchRequest)
+            
+            if let expenseOld = result.first {
+                
+                category.removeFromExpenses(expenseOld)
+                
+                expenseOld.note       = note
+                expenseOld.amount     = NSDecimalNumber(decimal: amount)
+                expenseOld.date       = dueDate
+                expenseOld.reminder   = addToCalendar
+                expenseOld.occurrence = Int64(occur)
+                expenseOld.eventId    = calendarId
+                
+                
+                category.addToExpenses(expenseOld)
+            }
+            
+            try self.manageContent!.save()
+            completion(true)
+            
+        } catch _ as NSError {
+            completion(false)
+        }
+       
     }
 }

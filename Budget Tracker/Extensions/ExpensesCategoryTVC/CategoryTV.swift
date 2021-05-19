@@ -13,14 +13,31 @@ extension ExpensesCategoryTVC {
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        var sectionCount: Int = 0
+        
+        if categoryManageObjects.count > 0 {
+            sectionCount = 1
+            tableView.backgroundView = nil
+            
+        } else {
+            
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width / 2, height: tableView.bounds.size.height))
+            noDataLabel.text          = "              No Category is available. \n         Please add your new \n            category by clicking the + icon."
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.numberOfLines = 3
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            sectionCount = 0
+        }
+        
+        return sectionCount
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return categoryManageObjects.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cateogry", for: indexPath) as! CategoryTC
@@ -29,25 +46,25 @@ extension ExpensesCategoryTVC {
         cell.setupCell(category: category)
         cell.delegate = self
         cell.index = indexPath.row
-
-   
+        
+        
         return cell
     }
     
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.selectedCategoryIndex = indexPath.row
         
         self.selectedCategory = self.categoryManageObjects[indexPath.row] as? Category
-
+        
         if let updateCategory = dataManager.getCategory(name: self.selectedCategory.name!)?.first {
             self.selectedCategory     = updateCategory
-            self.delegate?.ExpenseDetail(categoryData: selectedCategory, categoryManageObject: categoryManageObjects[indexPath.row])
+            self.delegate?.ExpenseDetail(categoryData: selectedCategory)
         }
         
         self.updateCategoryTapCount()
-
+        
     }
     
     // Override to support conditional editing of the table view.
@@ -68,6 +85,8 @@ extension ExpensesCategoryTVC {
                         
                         if result {
                             self.categoryManageObjects = self.dataManager.getCategoryList(order: self.selectedOrderType)
+                            
+                            
                             self.tableView.reloadData()
                         } else {
                             print("Delete failed")
@@ -75,11 +94,11 @@ extension ExpensesCategoryTVC {
                     }
                 }
             }
-
+            
         }
         
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteContextItem])
-
+        
         return swipeActions
     }
     

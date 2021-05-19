@@ -41,6 +41,24 @@ extension ExpensesDetailVC: UITableViewDelegate, UITableViewDataSource {
                 
                 if actionResult {
                     
+                    let deleteExpense = self.expensesList[indexPath.row]
+                    
+                    if deleteExpense.eventId != nil && deleteExpense.eventId != "" {
+                        Helper.deleteEvent(eventIdentifier: deleteExpense.eventId!)
+                    }
+                    
+                    self.dataManager.deleteExpense(name: deleteExpense.note!) {
+                        result in
+                        
+                        if result {
+                            
+                            self.updateTable()
+                            
+                        } else {
+                            
+                            Alert.showMessage(msg: "Unable to delete expense. Please try again later", on: self)
+                        }
+                    }
                    
                 }
             }
