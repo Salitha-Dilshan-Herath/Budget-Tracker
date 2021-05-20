@@ -178,6 +178,7 @@ struct CoreDataManager {
             
             if let expense = result.first {
                 
+            
                 if let category = getCategory(name: (expense.category?.name)!)?.first{
                     
                     category.removeFromExpenses(expense)

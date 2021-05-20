@@ -116,7 +116,7 @@ class AddNewExpenseVC: UIViewController {
         
         if addToCalendar {
             
-            Helper.createEvent(title: "Reminder on \(note)", endDate: due_date) {
+            Helper.createEvent(title: "Reminder on \(note)", endDate: due_date, occur: self.selectedOccur) {
                 (status, result) in
                 
                 if status {
@@ -196,7 +196,7 @@ class AddNewExpenseVC: UIViewController {
             ///MARK: - if have reminder check new changes
             if addToCalendar {
                 
-                Helper.updateEvent(title: "Reminder on \(note)", endDate: due_date, eventIdentifier: self.selectedExpense.eventId!) {
+                Helper.updateEvent(title: "Reminder on \(note)", endDate: due_date, eventIdentifier: self.selectedExpense.eventId!, occur: self.selectedOccur) {
                     
                     (status, result) in
                     
@@ -236,7 +236,7 @@ class AddNewExpenseVC: UIViewController {
             
         } else {
             
-            Helper.createEvent(title: "Reminder on \(note)", endDate: due_date) {
+            Helper.createEvent(title: "Reminder on \(note)", endDate: due_date, occur: self.selectedOccur) {
                 (status, result) in
                 
                 if status {

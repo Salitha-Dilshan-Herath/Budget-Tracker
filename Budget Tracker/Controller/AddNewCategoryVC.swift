@@ -86,7 +86,7 @@ class AddNewCategoryVC: UIViewController {
                 
                 if result {
                     
-                    Alert.showMessageWithTask(on: self, msg: "Project details update successful"){
+                    Alert.showMessageWithTask(on: self, msg: "Category details update successful"){
                         
                         self.delegate?.updateTable()
                         self.dismiss(animated: true, completion: nil)
@@ -95,7 +95,7 @@ class AddNewCategoryVC: UIViewController {
                     
                 } else {
                     
-                    Alert.showMessage(msg: "An error occurred while saving the project", on: self)
+                    Alert.showMessage(msg: "An error occurred while saving the category", on: self)
                     
                 }
                 
@@ -110,7 +110,7 @@ class AddNewCategoryVC: UIViewController {
                 
                 if result {
                     
-                    Alert.showMessageWithTask(on: self, msg: "Project save successful"){
+                    Alert.showMessageWithTask(on: self, msg: "Category save successful"){
                         
                         self.delegate?.updateTable()
                         self.dismiss(animated: true, completion: nil)
@@ -119,7 +119,7 @@ class AddNewCategoryVC: UIViewController {
                     
                 } else {
                     
-                    Alert.showMessage(msg: "An error occurred while saving the project", on: self)
+                    Alert.showMessage(msg: "An error occurred while saving the category", on: self)
                     
                 }
             }

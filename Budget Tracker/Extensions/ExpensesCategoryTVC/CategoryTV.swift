@@ -22,7 +22,7 @@ extension ExpensesCategoryTVC {
         } else {
             
             let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width / 2, height: tableView.bounds.size.height))
-            noDataLabel.text          = "              No Category is available. \n         Please add your new \n            category by clicking the + icon."
+            noDataLabel.text          = "              No Category is available \n \t       Please add your new \n \t         category by clicking the + icon."
             noDataLabel.textColor     = UIColor.black
             noDataLabel.numberOfLines = 3
             noDataLabel.textAlignment = .center

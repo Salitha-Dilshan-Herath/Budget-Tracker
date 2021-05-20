@@ -35,6 +35,7 @@ extension ExpensesDetailVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let deleteContextItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
             
             Alert.showDeleteConfirmationAlert(on: self, msg: "Are you sure you want to delete this Category?") { (actionResult) in
@@ -62,11 +63,9 @@ extension ExpensesDetailVC: UITableViewDelegate, UITableViewDataSource {
                    
                 }
             }
-
         }
         
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteContextItem])
-
         return swipeActions
     }
 }

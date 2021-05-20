@@ -12,7 +12,7 @@ import EventKit
 struct Helper {
     
     //MARK: - Creates an event in the Calendar
-    static func createEvent(title: String, endDate: Date, completion: @escaping (Bool, String) -> Void){
+    static func createEvent(title: String, endDate: Date, occur: Int, completion: @escaping (Bool, String) -> Void){
         
         ///MARK: - initiate event parameters
         let eventStore = EKEventStore()
@@ -21,6 +21,10 @@ struct Helper {
         event.startDate = Date()
         event.endDate = endDate
         event.calendar = eventStore.defaultCalendarForNewEvents
+        
+        if let recurrent = Helper.recurrenceRules(occur: occur, end: endDate){
+            event.recurrenceRules = [recurrent]
+        }
         
         ///MARK: - check permission
         if (EKEventStore.authorizationStatus(for: .event) != EKAuthorizationStatus.authorized) {
@@ -101,7 +105,7 @@ struct Helper {
     }
     
     
-    static func updateEvent(title: String, endDate: Date, eventIdentifier: String,  completion: @escaping (Bool, String) -> Void){
+    static func updateEvent(title: String, endDate: Date, eventIdentifier: String, occur: Int,  completion: @escaping (Bool, String) -> Void){
         
         ///MARK: - initiate event parameter
         let eventStore = EKEventStore()
@@ -125,6 +129,13 @@ struct Helper {
                         if let updateObj = eventToUpdate {
                             updateObj.title = title
                             updateObj.endDate = endDate
+                            
+                            if let recurrent = Helper.recurrenceRules(occur: occur, end: endDate){
+                                updateObj.recurrenceRules = [recurrent]
+                            } else {
+                                updateObj.recurrenceRules = nil
+                            }
+                            
                             try eventStore.save(updateObj, span: .thisEvent)
                             completion(true, updateObj.eventIdentifier)
                         } else {
@@ -160,5 +171,20 @@ struct Helper {
             }
             
         }
+    }
+    
+    ///MARK: Implement recurrenceRules
+    private static func recurrenceRules(occur: Int, end: Date) -> EKRecurrenceRule? {
+        
+        if occur == 1 {
+            return EKRecurrenceRule(recurrenceWith: .daily, interval: 1, end: EKRecurrenceEnd(end: end))
+        } else if occur == 2 {
+            return EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, end: EKRecurrenceEnd(end: end))
+        } else if occur == 3{
+            return EKRecurrenceRule(recurrenceWith: .monthly, interval: 1, end: EKRecurrenceEnd(end: end))
+            
+          
+        }
+        return nil
     }
 }
